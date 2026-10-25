@@ -1,0 +1,699 @@
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap");
+
+/* =====================================================
+   TOKENS — pastelería premium: chocolate, blanco y rosa
+   ===================================================== */
+.cata-app {
+  /* Chocolate */
+  --choco: #3b2215;
+  --choco-2: #5a3420;
+  --choco-3: #7b4a2e;
+  --choco-txt: #8a6a58;
+
+  /* Blancos */
+  --blanco: #ffffff;
+  --nata: #fffaf6;
+  --linea: #efe3da;
+
+  /* Acento principal: rosa fresa (estilo Crumbl) */
+  --rosa: #e8789b;
+  --rosa-2: #d65c83;
+  --rosa-suave: #fde8ef;
+
+  /* Detalles dorados */
+  --oro: #d9a441;
+  --oro-suave: #fbf1dc;
+
+  /* Macarons (tintes por paso) */
+  --mac-cielo: #dcecf9;   --mac-cielo-t: #4f86b3;
+  --mac-lila: #ece4f7;    --mac-lila-t: #8665b5;
+  --mac-durazno: #fde6d6; --mac-durazno-t: #d9783f;
+  --mac-rosa: #fde8ef;    --mac-rosa-t: #d65c83;
+  --mac-pista: #e3f2df;   --mac-pista-t: #5f9a57;
+  --mac-mante: #fbf1dc;   --mac-mante-t: #b88a2a;
+
+  /* Tema activo */
+  --tema: var(--rosa-2);
+  --tema-suave: var(--rosa-suave);
+
+  --sombra: 0 2px 4px rgba(59, 34, 21, 0.05), 0 16px 40px rgba(59, 34, 21, 0.10);
+  --radio: 26px;
+
+  min-height: 100vh;
+  min-height: 100dvh;
+  position: relative;
+  overflow-x: hidden;
+  font-family: "Fredoka", system-ui, sans-serif;
+  color: var(--choco);
+  background:
+    radial-gradient(circle at 0% 0%, #fde3ec 0, transparent 38%),
+    radial-gradient(circle at 100% 100%, #fbe9dc 0, transparent 40%),
+    radial-gradient(rgba(214, 92, 131, 0.10) 1.2px, transparent 1.6px) 0 0 / 24px 24px,
+    var(--nata);
+  padding: 76px 16px 124px;
+  box-sizing: border-box;
+}
+
+.cata-app *,
+.cata-app *::before,
+.cata-app *::after { box-sizing: border-box; }
+
+.cata-app button { font-family: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.cata-app button:disabled { cursor: not-allowed; }
+
+/* =====================================================
+   FONDO FLOTANTE
+   ===================================================== */
+.cata-fondo { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+.cata-fondo span {
+  position: absolute;
+  font-size: 2rem;
+  opacity: 0.16;
+  left: calc(var(--i) * 12.5% + 3%);
+  top: calc(var(--i) * 11% + 4%);
+  animation: cata-flotar 8s ease-in-out infinite;
+  animation-delay: calc(var(--i) * -1s);
+}
+@keyframes cata-flotar {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-16px) rotate(12deg); }
+}
+
+.cata-main {
+  position: relative;
+  z-index: 1;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* =====================================================
+   BADGE DE SINCRONIZACIÓN
+   ===================================================== */
+.cata-sync {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: 0 4px 14px rgba(59, 34, 21, 0.15);
+  transition: background 0.3s, color 0.3s;
+}
+.cata-sync--ok        { background: #4f9a5f; color: var(--blanco); }
+.cata-sync--syncing   { background: var(--oro); color: var(--blanco); }
+.cata-sync--pendiente { background: var(--oro); color: var(--blanco); }
+.cata-sync--error     { background: var(--rosa-2); color: var(--blanco); }
+
+.cata-spin { animation: cata-girar 0.9s linear infinite; }
+@keyframes cata-girar { to { transform: rotate(360deg); } }
+
+/* =====================================================
+   TIPOGRAFÍA
+   ===================================================== */
+.cata-eyebrow {
+  display: inline-block;
+  margin: 0 0 12px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  background: var(--rosa-suave);
+  color: var(--rosa-2);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.cata-title {
+  margin: 0 0 12px;
+  font-size: clamp(1.9rem, 6.2vw, 2.7rem);
+  line-height: 1.1;
+  font-weight: 700;
+  color: var(--choco);
+}
+.cata-text { margin: 0 0 26px; font-size: 1.15rem; line-height: 1.5; color: var(--choco-txt); }
+.cata-text b { color: var(--rosa-2); }
+
+.cata-q-title {
+  margin: 0 0 6px;
+  font-size: clamp(1.5rem, 5vw, 1.9rem);
+  font-weight: 700;
+  color: var(--choco);
+  text-align: center;
+}
+.cata-ayuda { margin: 0 0 18px; text-align: center; font-size: 1.02rem; color: var(--choco-txt); }
+.cata-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 22px 0 10px;
+  font-size: 1.08rem;
+  font-weight: 600;
+  color: var(--choco);
+}
+.cata-label::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--rosa);
+  flex-shrink: 0;
+}
+
+/* =====================================================
+   TARJETA con "chorreado" de chocolate
+   ===================================================== */
+.cata-card {
+  position: relative;
+  background: var(--blanco);
+  border-radius: var(--radio);
+  padding: 46px 18px 26px;
+  box-shadow: var(--sombra);
+  overflow: hidden;
+  animation: cata-entrar 0.35s ease-out;
+}
+.cata-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 16px;
+  background: linear-gradient(180deg, var(--choco-2), var(--choco));
+}
+.cata-card::after {
+  content: "";
+  position: absolute;
+  top: 15px; left: 0; right: 0;
+  height: 18px;
+  background:
+    radial-gradient(circle at 50% 0, var(--choco) 9px, transparent 9.5px) 0 0 / 46px 18px repeat-x,
+    radial-gradient(circle at 50% 0, var(--choco) 6px, transparent 6.5px) 23px 0 / 46px 12px repeat-x;
+}
+
+/* Cada paso con su macaron */
+.cata-card--paso-0 { --tema: var(--mac-cielo-t);   --tema-suave: var(--mac-cielo); }   /* 👀 mirar */
+.cata-card--paso-1 { --tema: var(--mac-lila-t);    --tema-suave: var(--mac-lila); }    /* 👃 oler */
+.cata-card--paso-2 { --tema: var(--mac-durazno-t); --tema-suave: var(--mac-durazno); } /* 😋 probar */
+.cata-card--paso-3 { --tema: var(--choco-3);       --tema-suave: #f5e9e0; }            /* 🍫 Nutella */
+.cata-card--paso-4 { --tema: var(--mac-pista-t);   --tema-suave: var(--mac-pista); }   /* 🦷 textura */
+.cata-card--paso-5 { --tema: var(--mac-rosa-t);    --tema-suave: var(--mac-rosa); }    /* ❤️ total */
+
+.cata-card[class*="cata-card--paso-"] {
+  background: linear-gradient(180deg, var(--tema-suave) 0, var(--blanco) 210px);
+}
+
+@keyframes cata-entrar {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* =====================================================
+   INTRO — tarjeta de chocolate
+   ===================================================== */
+.cata-intro {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  padding: 40px 22px 36px;
+  border-radius: 32px;
+  background:
+    radial-gradient(circle at 85% 10%, rgba(232, 120, 155, 0.35) 0, transparent 40%),
+    radial-gradient(circle at 10% 95%, rgba(217, 164, 65, 0.25) 0, transparent 40%),
+    linear-gradient(160deg, var(--choco-2), var(--choco));
+  box-shadow: 0 20px 50px rgba(59, 34, 21, 0.35);
+  animation: cata-entrar 0.4s ease-out;
+}
+.cata-intro .cata-eyebrow { background: rgba(255, 255, 255, 0.12); color: #ffc7d8; }
+.cata-intro .cata-title   { color: var(--blanco); }
+.cata-intro .cata-text    { color: #e9d8cd; }
+.cata-intro .cata-text b  { color: #ffc7d8; }
+
+.cata-intro-cookie {
+  display: grid;
+  place-items: center;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 22px;
+  border-radius: 50%;
+  background: var(--nata);
+  box-shadow: 0 0 0 8px var(--rosa), 0 0 0 16px rgba(232, 120, 155, 0.25), 0 18px 30px rgba(0, 0, 0, 0.3);
+  font-size: 5.6rem;
+  line-height: 1;
+  animation: cata-rebote 2.8s ease-in-out infinite;
+}
+.cata-intro .cata-btn--primary {
+  background: var(--rosa);
+  color: var(--blanco);
+  box-shadow: 0 5px 0 #b8476c, 0 12px 24px rgba(232, 120, 155, 0.4);
+}
+.cata-intro .cata-btn--primary:hover { background: var(--rosa-2); }
+
+@keyframes cata-rebote {
+  0%, 100% { transform: translateY(0) rotate(-5deg); }
+  50% { transform: translateY(-10px) rotate(5deg); }
+}
+
+/* =====================================================
+   BOTONES
+   ===================================================== */
+.cata-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 56px;
+  padding: 12px 24px;
+  border-radius: 999px;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: transform 0.12s, box-shadow 0.15s, background 0.2s, opacity 0.2s;
+}
+.cata-btn:active:not(:disabled) { transform: translateY(3px); }
+
+.cata-btn--primary {
+  background: var(--choco);
+  color: var(--blanco);
+  box-shadow: 0 5px 0 #20120a, 0 10px 22px rgba(59, 34, 21, 0.25);
+}
+.cata-btn--primary:hover:not(:disabled) { background: var(--choco-2); }
+.cata-btn--primary:active:not(:disabled) { box-shadow: 0 2px 0 #20120a; }
+.cata-btn--primary:disabled {
+  background: #ddd0c7;
+  color: #f8f2ee;
+  box-shadow: 0 5px 0 #cbbcb1;
+}
+
+.cata-btn--ghost {
+  background: var(--blanco);
+  color: var(--choco-2);
+  border: 2px solid var(--linea);
+}
+.cata-btn--soft {
+  background: var(--rosa-suave);
+  color: var(--rosa-2);
+  box-shadow: 0 4px 0 #f6cad8;
+}
+.cata-btn--xl { min-height: 66px; padding: 16px 34px; font-size: 1.32rem; }
+
+/* =====================================================
+   NAVEGACIÓN
+   ===================================================== */
+.cata-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 16px calc(14px + env(safe-area-inset-bottom));
+  background: linear-gradient(180deg, rgba(255, 250, 246, 0), var(--nata) 40%);
+}
+.cata-nav .cata-btn--primary { flex: 1; max-width: 340px; margin-left: auto; }
+
+/* =====================================================
+   INPUTS
+   ===================================================== */
+.cata-input,
+.cata-textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 2px solid var(--linea);
+  background: var(--nata);
+  font-family: inherit;
+  font-size: 1.08rem;
+  color: var(--choco);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.cata-input::placeholder,
+.cata-textarea::placeholder { color: #c4ada0; }
+.cata-input:focus,
+.cata-textarea:focus {
+  border-color: var(--rosa);
+  box-shadow: 0 0 0 4px var(--rosa-suave);
+}
+.cata-textarea { resize: vertical; }
+
+/* =====================================================
+   CHIPS
+   ===================================================== */
+.cata-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.cata-chip {
+  min-width: 54px;
+  min-height: 50px;
+  padding: 8px 14px;
+  border-radius: 16px;
+  border: 2px solid var(--linea);
+  background: var(--blanco);
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--choco-2);
+  transition: all 0.15s;
+}
+.cata-chip:hover { border-color: #f2c3d2; background: #fffafc; }
+.cata-chip.sel {
+  background: var(--choco);
+  border-color: var(--choco);
+  color: var(--blanco);
+  font-weight: 600;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(59, 34, 21, 0.22);
+}
+.cata-mejoras .cata-chip.sel {
+  background: var(--rosa);
+  border-color: var(--rosa);
+  box-shadow: 0 6px 14px rgba(232, 120, 155, 0.35);
+}
+
+/* =====================================================
+   OPCIONES GRANDES (género)
+   ===================================================== */
+.cata-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.cata-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 6px;
+  border-radius: 20px;
+  border: 2px solid var(--linea);
+  background: var(--blanco);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--choco-2);
+  transition: all 0.15s;
+}
+.cata-option-emoji { font-size: 2.3rem; }
+.cata-option.sel {
+  background: var(--rosa-suave);
+  border-color: var(--rosa);
+  color: var(--choco);
+  font-weight: 600;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(232, 120, 155, 0.22);
+}
+
+/* =====================================================
+   REGLAS DEL CATADOR
+   ===================================================== */
+.cata-tips { display: grid; gap: 10px; margin-top: 18px; }
+.cata-tip {
+  --c: var(--mac-cielo);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  border-radius: 20px;
+  background: var(--blanco);
+  border: 2px solid var(--linea);
+}
+.cata-tip:nth-child(2) { --c: var(--mac-durazno); }
+.cata-tip:nth-child(3) { --c: var(--mac-pista); }
+.cata-tip:nth-child(4) { --c: var(--mac-lila); }
+.cata-tip span {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--c);
+  font-size: 1.8rem;
+}
+.cata-tip p { margin: 0; font-size: 1.06rem; line-height: 1.4; color: var(--choco-2); }
+.cata-tip b { color: var(--choco); }
+
+/* =====================================================
+   TICKETS DE CÓDIGO (platitos)
+   ===================================================== */
+.cata-tickets {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 8px;
+}
+.cata-ticket {
+  position: relative;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 2px solid var(--linea);
+  background: radial-gradient(circle, var(--blanco) 56%, var(--nata) 57%, var(--nata) 70%, #f6ebe3 71%);
+  box-shadow: 0 6px 14px rgba(59, 34, 21, 0.08);
+  color: var(--choco);
+  transition: all 0.18s;
+}
+.cata-ticket:hover { border-color: #f2c3d2; }
+.cata-ticket-num { font-size: clamp(1.4rem, 6vw, 1.85rem); font-weight: 700; letter-spacing: 0.08em; }
+.cata-ticket.sel {
+  border-color: var(--rosa);
+  background: radial-gradient(circle, var(--blanco) 56%, var(--rosa-suave) 57%);
+  color: var(--rosa-2);
+  box-shadow: 0 0 0 4px var(--rosa), 0 12px 24px rgba(232, 120, 155, 0.35);
+  transform: scale(1.06) rotate(-3deg);
+}
+.cata-ticket.hecho { opacity: 0.35; filter: grayscale(0.6); }
+.cata-ticket-check {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #4f9a5f;
+  color: var(--blanco);
+  font-size: 0.85rem;
+  display: grid;
+  place-items: center;
+}
+.cata-ticket-crown {
+  position: absolute;
+  top: -20px;
+  font-size: 1.8rem;
+  animation: cata-pop 0.4s ease-out;
+}
+
+/* =====================================================
+   CABECERA DE CADA GALLETA
+   ===================================================== */
+.cata-steps-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.cata-badge-codigo {
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--choco);
+  color: var(--blanco);
+  font-size: 0.88rem;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(59, 34, 21, 0.2);
+}
+.cata-dots { display: flex; gap: 6px; }
+.cata-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: rgba(59, 34, 21, 0.12);
+  transition: all 0.25s;
+}
+.cata-dot.done { background: var(--choco-3); }
+.cata-dot.active { width: 28px; border-radius: 999px; background: var(--rosa); }
+
+.cata-paso-emoji {
+  display: grid;
+  place-items: center;
+  width: 92px;
+  height: 92px;
+  margin: 4px auto 12px;
+  border-radius: 50%;
+  background: var(--blanco);
+  box-shadow: 0 0 0 6px var(--tema-suave), 0 0 0 8px var(--tema), 0 12px 22px rgba(59, 34, 21, 0.12);
+  font-size: 3rem;
+  line-height: 1;
+  animation: cata-rebote 2.8s ease-in-out infinite;
+}
+
+/* =====================================================
+   PREGUNTA
+   ===================================================== */
+.cata-pregunta {
+  margin-top: 14px;
+  padding: 16px 12px 12px;
+  border-radius: 22px;
+  background: var(--blanco);
+  border: 2px solid var(--linea);
+  box-shadow: 0 4px 12px rgba(59, 34, 21, 0.04);
+}
+.cata-pregunta-txt {
+  margin: 0 0 10px;
+  text-align: center;
+  font-size: 1.14rem;
+  font-weight: 600;
+  color: var(--choco);
+}
+
+/* =====================================================
+   RATING DE GALLETAS
+   ===================================================== */
+.cata-rating { text-align: center; }
+.cata-cookies { display: flex; justify-content: center; gap: clamp(4px, 2vw, 12px); }
+.cata-cookie {
+  background: none;
+  border: none;
+  padding: 2px;
+  font-size: clamp(2.3rem, 11vw, 3.1rem);
+  line-height: 1;
+  filter: grayscale(1) opacity(0.25);
+  transition: filter 0.2s, transform 0.15s;
+}
+.cata-cookie.on { filter: drop-shadow(0 4px 5px rgba(59, 34, 21, 0.25)); }
+.cata-cookie:active { transform: scale(0.88); }
+.cata-cookie.pop { animation: cata-pop 0.45s cubic-bezier(0.3, 1.6, 0.5, 1); }
+@keyframes cata-pop {
+  0%   { transform: scale(0.6) rotate(-18deg); }
+  60%  { transform: scale(1.3) rotate(8deg); }
+  100% { transform: scale(1) rotate(0); }
+}
+.cata-rating--grande .cata-cookie { font-size: clamp(2.7rem, 13vw, 3.6rem); }
+
+.cata-rating-txt {
+  display: inline-block;
+  min-height: 1.6em;
+  margin: 10px 0 0;
+  padding: 4px 14px;
+  border-radius: 999px;
+  font-size: 1.02rem;
+  font-weight: 500;
+  color: #c4ada0;
+  transition: all 0.2s;
+}
+.cata-rating-txt.show {
+  background: var(--choco);
+  color: var(--blanco);
+  font-weight: 600;
+}
+
+/* =====================================================
+   JAR / COMPRA
+   ===================================================== */
+.cata-jar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.cata-jar-btn {
+  --c: var(--rosa);
+  --cs: var(--rosa-suave);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 4px;
+  border-radius: 18px;
+  border: 2px solid var(--linea);
+  background: var(--blanco);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--choco-2);
+  transition: all 0.15s;
+}
+.cata-jar-btn--bajo   { --c: var(--mac-cielo-t);  --cs: var(--mac-cielo); }
+.cata-jar-btn--justo  { --c: var(--mac-pista-t);  --cs: var(--mac-pista); }
+.cata-jar-btn--alto   { --c: var(--mac-rosa-t);   --cs: var(--mac-rosa); }
+.cata-jar-btn--si     { --c: var(--mac-pista-t);  --cs: var(--mac-pista); }
+.cata-jar-btn--talvez { --c: var(--mac-mante-t);  --cs: var(--mac-mante); }
+.cata-jar-btn--no     { --c: var(--mac-rosa-t);   --cs: var(--mac-rosa); }
+
+.cata-jar-emoji { font-size: 2.1rem; }
+.cata-jar-btn.sel {
+  background: var(--cs);
+  border-color: var(--c);
+  color: var(--choco);
+  font-weight: 600;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px color-mix(in srgb, var(--c) 25%, transparent);
+}
+
+/* =====================================================
+   AGUA
+   ===================================================== */
+.cata-agua { text-align: center; }
+.cata-agua.cata-card { background: linear-gradient(180deg, var(--mac-cielo) 0, var(--blanco) 220px); }
+.cata-gotas { font-size: 3.2rem; margin-bottom: 8px; animation: cata-rebote 2.6s ease-in-out infinite; }
+.cata-agua-btns { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.cata-agua-btns .cata-btn { width: 100%; max-width: 360px; }
+
+/* =====================================================
+   GRACIAS
+   ===================================================== */
+.cata-done { text-align: center; padding-top: 30px; }
+.cata-done-card {
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  padding: 40px 22px 34px;
+  border-radius: 32px;
+  background:
+    radial-gradient(circle at 85% 10%, rgba(232, 120, 155, 0.35) 0, transparent 40%),
+    radial-gradient(circle at 10% 95%, rgba(217, 164, 65, 0.25) 0, transparent 40%),
+    linear-gradient(160deg, var(--choco-2), var(--choco));
+  box-shadow: 0 20px 50px rgba(59, 34, 21, 0.35);
+  animation: cata-entrar 0.4s ease-out;
+}
+.cata-done-card .cata-title { color: var(--blanco); }
+.cata-done-card .cata-text  { color: #e9d8cd; }
+.cata-done-card .cata-btn--primary {
+  background: var(--rosa);
+  box-shadow: 0 5px 0 #b8476c, 0 12px 24px rgba(232, 120, 155, 0.4);
+}
+.cata-done-emoji {
+  display: grid;
+  place-items: center;
+  width: 116px;
+  height: 116px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  background: var(--oro-suave);
+  box-shadow: 0 0 0 7px var(--oro), 0 0 0 14px rgba(217, 164, 65, 0.25);
+  font-size: 4rem;
+  animation: cata-pop 0.6s ease-out;
+}
+
+.cata-confetti { position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
+.cata-confetti span {
+  position: absolute;
+  top: -60px;
+  left: calc(var(--i) * 10% + 2%);
+  font-size: 2rem;
+  animation: cata-caer 3.6s linear infinite;
+  animation-delay: calc(var(--i) * 0.32s);
+}
+@keyframes cata-caer {
+  to { transform: translateY(110vh) rotate(450deg); }
+}
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+@media (min-width: 700px) {
+  .cata-app { padding-top: 90px; }
+  .cata-card { padding: 52px 32px 32px; }
+  .cata-intro { padding: 52px 40px 44px; }
+  .cata-tickets { grid-template-columns: repeat(3, 120px); justify-content: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cata-app *,
+  .cata-app *::before,
+  .cata-app *::after { animation: none !important; transition: none !important; }
+}
